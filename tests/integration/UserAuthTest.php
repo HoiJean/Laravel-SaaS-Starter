@@ -28,6 +28,18 @@ class UserAuthTest extends TestCase
   }
 
   /** @test */
+  public function can_only_see_the_dashboard_link_on_the_menu_when_logged_in()
+  {
+    $this->visit('/')
+      ->dontSee('Dashboard');
+
+    $user = factory(App\User::class, 1)->create();
+    $this->actingAs($user)
+       ->visit('/')
+       ->see('Dashboard');
+  }
+
+  /** @test */
   public function guest_is_redirected_to_login_when_trying_to_access_dashboard()
   {
     $this->visit('/dashboard')

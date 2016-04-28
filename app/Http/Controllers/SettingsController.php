@@ -41,11 +41,21 @@ class SettingsController extends Controller
       // Get the user
       $user = Auth::user();
       // Update the user's contact info
-      $user->update($request->all());
+      if ($user->name != $request->get('name'))
+      {
+        $user->name = $request->get('name');
+      }
+
+      if ($user->email != $request->get('email'))
+      {
+        $user->email = $request->get('email');
+      }
+
+      $user->save();
 
       // Mail the user and update message
       Mail::send('emails.settings.settings_update_contact', ['user' => $user], function ($m) use ($user) {
-           $m->from(env('MAIL_FROM'));
+           $m->from('hello@app.com', 'Your Application');
 
            $m->to($user->email, $user->name)->subject('Your contact information has been updated');
        });
