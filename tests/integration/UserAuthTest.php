@@ -8,13 +8,8 @@ class UserAuthTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
-  // public function setup(){
-  //   parent::setUp();
-  //
-  //   Mail::getSwiftMailer()
-  //     ->registerPlugin(new TestingMailEventListener($this));
-  // }
 
   /** @test */
   public function home_page_links_to_login_page()
@@ -101,42 +96,18 @@ class UserAuthTest extends TestCase
         ->seePageIs('/password/reset');
   }
 
-  // /** @test */
-  // public function see_email_was_sent_after_guest_request_password_request()
-  // {
-  //   // $user = factory(App\User::class, 1)->create();
-  //   // $this->visit('/password/reset')
-  //   //     ->type($user->email, 'email')
-  //   //     ->press('Send Password Reset Link')
-  //   //     ->seeEmailWasSent();
-  //
-  //   Mail::raw('Hello World', function($message){
-  //     $message->to('foo@bar.com');
-  //     $message->from('bar@foo.com');
-  //   });
-  //
-  //
-  //   // $this->seeEmailWasSent();
-  //
-  //
-  //
-  // }
-  //
-  // protected function seeEmailWasSent(){
-  //   Mail::raw('Hello World', function($message){
-  //     $message->to('foo@bar.com');
-  //     $message->from('bar@foo.com');
-  //   });
-  // }
-}
+  /** @test */
+  public function see_email_was_sent_after_guest_request_password_request()
+  {
+    $user = factory(App\User::class, 1)->create();
+    $this->visit('/password/reset')
+        ->type($user->email, 'email')
+        ->press('Send Password Reset Link')
+        ->seeEmailWasSent()
+        ->seeEmailSubject('Your Password Reset Link')
+        ->seeEmailTo($user->email)
+        ->seeEmailContains('Click here to reset your password');
+  }
 
-//
-// class TestingMailEventListener implements Swift_Events_EventListener
-// {
-//   public function beforeSendPerformed($event)
-//   {
-//     $message = $event->getMessage();
-//
-//     // dd($message);
-//   }
-// }
+
+}
