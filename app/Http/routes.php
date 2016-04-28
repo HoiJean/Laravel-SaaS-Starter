@@ -12,9 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages/welcome/index');
 });
 
 Route::auth();
 
 Route::get('/dashboard', 'HomeController@index');
+
+Route::get('/settings', ['as' => 'settings', 'uses' => 'SettingsController@index']);
+Route::post('/settings/contact', ['as' => 'settings.contact.post', 'uses' => 'SettingsController@updateUserContactInfo']);
