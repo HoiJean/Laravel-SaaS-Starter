@@ -10,6 +10,21 @@ use App\Http\Requests;
 class SettingsController extends Controller
 {
 
+    protected $user;
+
+    protected $validationRules = [
+      'contact_info_with_new_email' => [
+        'name' => 'required|min:2|max:255',
+        'email' => 'required|email|max:255|unique:users'
+      ],
+      'contact_info_with_same_email' => [
+        'name' => 'required|min:2|max:255',
+        'email' => 'required|email|max:255'
+      ],
+      'password' => [
+        'password' => 'required|min:6|confirmed'
+      ],
+    ];
     /**
      * Create a new controller instance.
      *
@@ -18,6 +33,7 @@ class SettingsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->user = Auth::user();
     }
   /**
      * Display a listing of the resource.
@@ -26,11 +42,8 @@ class SettingsController extends Controller
      */
     public function index()
     {
-      // Get the user
-      $user = Auth::user();
-
       return view('pages/settings/index')
-        ->with('user', $user);
+        ->with('user', $this->user);
     }
 
     /**
@@ -42,78 +55,89 @@ class SettingsController extends Controller
      */
     public function updateUserContactInfo(Request $request)
     {
-      // Get the user
-      $user = Auth::user();
 
-      if ($user->email != $request->get('email'))
-      {
-        $this->validate($request, [
-          'name' => 'required|min:2|max:255',
-          'email' => 'required|email|max:255|unique:users'
-        ]);
-      }
-      else{
-        $this->validate($request, [
-          'name' => 'required|min:2|max:255',
-          'email' => 'required|email|max:255'
-        ]);
-      }
+      $this->validateContactInfoRequest($request);
 
+      $this->updateContactInfo($request);
 
-      $user->name = $request->get('name');
-      $user->email = $request->get('email');
+      $this->mailUser(
+        'Your contact information has been updated',
+        'emails.settings.settings_update_contact'
+      );
 
-      $user->save();
-
-      // Mail the user and update message
-      Mail::send('emails.settings.settings_update_contact', ['user' => $user], function ($m) use ($user) {
-           $m->from('hello@app.com', 'Your Application');
-
-           $m->to($user->email, $user->name)->subject('Your contact information has been updated');
-       });
-
-
-      // return to settings with flash message
       return redirect()
         ->route('settings')
-        ->with('flash_success', 'Your contact information has been successfully updated.');
+        ->with('flash_success',
+          'Your contact information has been successfully updated.');
     }
 
     public function getPasswordChange()
     {
-      // Get the user
-      $user = Auth::user();
-
       return view('pages/settings/password')
-        ->with('user', $user);
+        ->with('user', $this->user);
     }
 
     public function updateUserPassword(Request $request)
     {
-      // Get the user
-      $user = Auth::user();
+      $this->validatePasswordRequest($request);
 
-      $this->validate($request, [
-        'password' => 'required|min:6|confirmed'
-      ]);
+      $this->updatePassword($request);
 
+      $this->mailUser(
+        'Your password has been updated',
+        'emails.settings.settings_update_password'
+      );
 
-      $user->password = \Hash::make( $request->get('password') );
-
-      $user->save();
-
-      // Mail the user and update message
-      Mail::send('emails.settings.settings_update_password', ['user' => $user], function ($m) use ($user) {
-           $m->from('hello@app.com', 'Your Application');
-
-           $m->to($user->email, $user->name)->subject('Your password has been updated');
-       });
-
-
-      // return to settings with flash message
       return redirect()
         ->route('settings.password')
-        ->with('flash_success', 'Your password has been successfully updated.');
+        ->with('flash_success',
+          'Your password has been successfully updated.');
     }
+
+
+
+
+
+    private function hasEmailBeenUpdated($request){
+      return $this->user->email != $request->get('email');
+    }
+
+    private function updateContactInfo($request){
+      $this->user->name = $request->get('name');
+      $this->user->email = $request->get('email');
+      $this->user->save();
+      return $this;
+    }
+
+    private function updatePassword($request){
+      $this->user->password = \Hash::make( $request->get('password') );
+      $this->user->save();
+    }
+
+    private function validateContactInfoRequest($request){
+      if ( $this->hasEmailBeenUpdated( $request ) )
+      {
+        $this->validate($request, $this->validationRules['contact_info_with_new_email'] );
+      }
+      else{
+        $this->validate($request, $this->validationRules['contact_info_with_same_email'] );
+      }
+    }
+
+    private function validatePasswordRequest($request){
+      $this->validate($request, $this->validationRules['password'] );
+    }
+
+    private function mailUser( $subject, $view){
+      $user = $this->user;
+      Mail::send( $view , ['user' => $user], function ($m) use ($user, $subject) {
+           $m->from('hello@app.com', 'Your Application');
+
+           $m->to($user->email, $user->name)->subject($subject);
+       });
+    }
+
+
+
 
 }

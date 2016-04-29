@@ -13,15 +13,6 @@
 
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
