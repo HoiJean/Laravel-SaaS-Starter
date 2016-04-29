@@ -23,4 +23,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public $validationRules = [
+      'contact_info_with_new_email' => [
+        'name' => 'required|min:2|max:255',
+        'email' => 'required|email|max:255|unique:users'
+      ],
+      'contact_info_with_same_email' => [
+        'name' => 'required|min:2|max:255',
+        'email' => 'required|email|max:255'
+      ],
+      'password' => [
+        'password' => 'required|min:6|confirmed'
+      ],
+    ];
 }

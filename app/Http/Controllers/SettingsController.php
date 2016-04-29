@@ -12,19 +12,6 @@ class SettingsController extends Controller
 
     protected $user;
 
-    protected $validationRules = [
-      'contact_info_with_new_email' => [
-        'name' => 'required|min:2|max:255',
-        'email' => 'required|email|max:255|unique:users'
-      ],
-      'contact_info_with_same_email' => [
-        'name' => 'required|min:2|max:255',
-        'email' => 'required|email|max:255'
-      ],
-      'password' => [
-        'password' => 'required|min:6|confirmed'
-      ],
-    ];
     /**
      * Create a new controller instance.
      *
@@ -117,15 +104,15 @@ class SettingsController extends Controller
     private function validateContactInfoRequest($request){
       if ( $this->hasEmailBeenUpdated( $request ) )
       {
-        $this->validate($request, $this->validationRules['contact_info_with_new_email'] );
+        $this->validate($request, $this->user->validationRules['contact_info_with_new_email'] );
       }
       else{
-        $this->validate($request, $this->validationRules['contact_info_with_same_email'] );
+        $this->validate($request, $this->user->validationRules['contact_info_with_same_email'] );
       }
     }
 
     private function validatePasswordRequest($request){
-      $this->validate($request, $this->validationRules['password'] );
+      $this->validate($request, $this->user->validationRules['password'] );
     }
 
     private function mailUser( $subject, $view){
