@@ -37,6 +37,15 @@ class UserSettingsAccessTest extends TestCase
      ->see($user->name);
   }
 
-
+  /** @test */
+  public function user_can_access_password_change_page_from_settings_page()
+  {
+    $user = factory(App\User::class, 1)->create();
+    $this->actingAs($user)
+     ->visit('/settings')
+     ->click('Update Password')
+     ->seePageIs('/settings/password')
+     ->see('Confirm Password');
+  }
 
 }

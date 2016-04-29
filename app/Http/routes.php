@@ -21,3 +21,5 @@ Route::get('/dashboard', 'HomeController@index');
 
 Route::get('/settings', ['as' => 'settings', 'uses' => 'SettingsController@index']);
 Route::post('/settings/contact', ['as' => 'settings.contact.post', 'uses' => 'SettingsController@updateUserContactInfo']);
+Route::get('/settings/password', ['as' => 'settings.password', 'uses' => 'SettingsController@getPasswordChange']);
+Route::post('/settings/password', ['as' => 'settings.password.post', 'uses' => 'SettingsController@updateUserPassword']);

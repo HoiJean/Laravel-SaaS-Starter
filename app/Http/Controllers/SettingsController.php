@@ -79,59 +79,41 @@ class SettingsController extends Controller
         ->with('flash_success', 'Your contact information has been successfully updated.');
     }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
-    //
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
-    //
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
-    //
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
+    public function getPasswordChange()
+    {
+      // Get the user
+      $user = Auth::user();
+
+      return view('pages/settings/password')
+        ->with('user', $user);
+    }
+
+    public function updateUserPassword(Request $request)
+    {
+      // Get the user
+      $user = Auth::user();
+
+      $this->validate($request, [
+        'password' => 'required|min:6|confirmed'
+      ]);
 
 
+      $user->password = \Hash::make( $request->get('password') );
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+      $user->save();
+
+      // Mail the user and update message
+      Mail::send('emails.settings.settings_update_password', ['user' => $user], function ($m) use ($user) {
+           $m->from('hello@app.com', 'Your Application');
+
+           $m->to($user->email, $user->name)->subject('Your password has been updated');
+       });
+
+
+      // return to settings with flash message
+      return redirect()
+        ->route('settings.password')
+        ->with('flash_success', 'Your password has been successfully updated.');
+    }
+
 }
