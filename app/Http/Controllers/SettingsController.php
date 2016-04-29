@@ -26,7 +26,11 @@ class SettingsController extends Controller
      */
     public function index()
     {
-      return view('pages/settings/index');
+      // Get the user
+      $user = Auth::user();
+
+      return view('pages/settings/index')
+        ->with('user', $user);
     }
 
     /**
@@ -36,20 +40,28 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateUserContactInfo(Requests\SettingsUserContactRequest $request)
+    public function updateUserContactInfo(Request $request)
     {
       // Get the user
       $user = Auth::user();
-      // Update the user's contact info
-      if ($user->name != $request->get('name'))
-      {
-        $user->name = $request->get('name');
-      }
 
       if ($user->email != $request->get('email'))
       {
-        $user->email = $request->get('email');
+        $this->validate($request, [
+          'name' => 'required|min:2|max:255',
+          'email' => 'required|email|max:255|unique:users'
+        ]);
       }
+      else{
+        $this->validate($request, [
+          'name' => 'required|min:2|max:255',
+          'email' => 'required|email|max:255'
+        ]);
+      }
+
+
+      $user->name = $request->get('name');
+      $user->email = $request->get('email');
 
       $user->save();
 

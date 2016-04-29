@@ -24,8 +24,8 @@ class SettingsUserContactRequest extends Request
     public function rules()
     {
         return [
-          'name' => 'min:2|max:255',
-          'email' => 'email|max:255|unique:users'
+          'name' => 'required|min:2|max:255',
+          'email' => 'required|email|max:255|unique:users'
         ];
     }
 }

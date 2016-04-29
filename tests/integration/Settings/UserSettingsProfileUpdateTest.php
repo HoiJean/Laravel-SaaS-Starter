@@ -36,33 +36,53 @@ class UserSettingsProfileUpdateTest extends TestCase
     $this->assertTrue($user->email == 'taylor@example.com');
   }
 
+
+
   /** @test */
   public function user_can_update_just_their_name()
   {
-    dd("More Tests to be completed in\n tests/integration/Settings/UserSettingsProfileUpdateTest.php\nLine42");
-    // $user = factory(App\User::class, 1)->create();
-    // $userEmailOld = $user->email;
-    //
-    // $this->actingAs($user)
-    //   ->visit('/settings')
-    //   ->type('Taylor', 'name')
-    //   ->press('Update');
-    //   // dd('$user');
-    //
-    // // Get the updated User from the database
-    // $user = App\User::find($user->id)->first();
-    //
-    // $this->assertTrue($user->name == 'Taylor');
-    // $this->assertTrue($user->email == $userEmailOld);
+    $user = factory(App\User::class, 1)->create();
+    $userEmailOld = $user->email;
+
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->type('Taylor', 'name')
+      ->press('Update');
+
+    // Get the updated User from the database
+    $user = App\User::find($user->id)->first();
+
+    $this->assertTrue($user->name == 'Taylor');
+    $this->assertTrue($user->email == $userEmailOld);
+
   }
 
   /** @test */
-  // public function user_can_update_just_their_email()
-  // {
-  //   // Given
-  //   // When
-  //   // Then
-  // }
+  public function user_can_update_just_their_email()
+  {
+    $user = factory(App\User::class, 1)->create();
+    $userNameOld = $user->name;
+
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->type('taylor@example.com', 'email')
+      ->press('Update');
+
+    // Get the updated User from the database
+    $user = App\User::find($user->id)->first();
+
+    $this->assertTrue($user->email == 'taylor@example.com');
+    $this->assertTrue($user->name == $userNameOld);
+  }
+
+  /** @test */
+  public function user_should_see_their_contact_information_in_the_form()
+  {
+    $user = factory(App\User::class, 1)->create();
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->see($user->email);
+  }
 
   /** @test */
   public function after_user_updates_contact_info_they_are_redirected_back_to_the_settings_page_with_a_flash_message()

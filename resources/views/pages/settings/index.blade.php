@@ -34,7 +34,7 @@
                           <label class="col-md-4 control-label">Name</label>
 
                           <div class="col-md-6">
-                              <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                              <input type="text" class="form-control" name="name" value="{{ $user->name }}">
 
                               @if ($errors->has('name'))
                                   <span class="help-block">
@@ -48,7 +48,7 @@
                           <label class="col-md-4 control-label">E-Mail Address</label>
 
                           <div class="col-md-6">
-                              <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                              <input type="email" class="form-control" name="email" value="{{ $user->email }}">
 
                               @if ($errors->has('email'))
                                   <span class="help-block">
