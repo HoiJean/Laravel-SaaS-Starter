@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Mail;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -47,7 +46,7 @@ class SettingsController extends Controller
 
       $this->updateContactInfo($request);
 
-      $this->mailUser(
+      $this->sendMail( $this->user,
         'Your contact information has been updated',
         'emails.settings.settings_update_contact'
       );
@@ -70,7 +69,7 @@ class SettingsController extends Controller
 
       $this->updatePassword($request);
 
-      $this->mailUser(
+      $this->sendMail( $this->user,
         'Your password has been updated',
         'emails.settings.settings_update_password'
       );
@@ -93,7 +92,6 @@ class SettingsController extends Controller
       $this->user->name = $request->get('name');
       $this->user->email = $request->get('email');
       $this->user->save();
-      return $this;
     }
 
     private function updatePassword($request){
@@ -114,17 +112,5 @@ class SettingsController extends Controller
     private function validatePasswordRequest($request){
       $this->validate($request, $this->user->validationRules['password'] );
     }
-
-    private function mailUser( $subject, $view){
-      $user = $this->user;
-      Mail::send( $view , ['user' => $user], function ($m) use ($user, $subject) {
-           $m->from('hello@app.com', 'Your Application');
-
-           $m->to($user->email, $user->name)->subject($subject);
-       });
-    }
-
-
-
 
 }
