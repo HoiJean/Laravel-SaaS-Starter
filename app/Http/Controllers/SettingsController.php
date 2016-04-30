@@ -81,9 +81,6 @@ class SettingsController extends Controller
     }
 
 
-
-
-
     private function hasEmailBeenUpdated($request){
       return $this->user->email != $request->get('email');
     }

@@ -37,4 +37,22 @@ class User extends Authenticatable
         'password' => 'required|min:6|confirmed'
       ],
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    public function accesses()
+    {
+        return $this->belongsToMany('App\Access');
+    }
+
+    public function role(){
+      return $this->roles->first()->name;
+    }
+
+    public function access(){
+      return $this->accesses->first()->name;
+    }
 }
