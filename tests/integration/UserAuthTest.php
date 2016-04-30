@@ -91,13 +91,8 @@ class UserAuthTest extends TestCase
   /** @test */
   public function when_user_registers_they_are_redirected_to_the_dashboard()
   {
-    $this->visit('/register')
-        ->type('Taylor', 'name')
-        ->type('taylor@example.com', 'email')
-        ->type('RandomPassword', 'password')
-        ->type('RandomPassword', 'password_confirmation')
-        ->press('Register')
-        ->seePageIs('/dashboard');
+    $user = $this->registerNewUser();
+    $this->seePageIs('/dashboard');
   }
 
   /** @test */

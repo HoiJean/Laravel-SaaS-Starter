@@ -19,11 +19,7 @@ class UserSettingsPasswordUpdateTest extends TestCase
         'password' => Hash::make('RandomPassword'),
     ]);
 
-    $this->actingAs($user)
-      ->visit('/settings/password')
-      ->type('RandomPasswordNew', 'password')
-      ->type('RandomPasswordNew', 'password_confirmation')
-      ->press('Update');
+    $this->userUpdatePassword($user);
 
     // Get the updated User from the database
     $user = App\User::find($user->id)->first();
@@ -36,12 +32,8 @@ class UserSettingsPasswordUpdateTest extends TestCase
   public function after_user_updates_password_they_are_redirected_back_to_the_password_page_with_a_flash_message()
   {
     $user = factory(App\User::class, 1)->create();
-    $this->actingAs($user)
-      ->visit('/settings/password')
-      ->type('RandomPasswordNew', 'password')
-      ->type('RandomPasswordNew', 'password_confirmation')
-      ->press('Update')
-      ->seePageIs('/settings/password')
+    $this->userUpdatePassword($user);
+    $this->seePageIs('/settings/password')
       ->see('Your password has been successfully updated.');
   }
 
@@ -78,15 +70,19 @@ class UserSettingsPasswordUpdateTest extends TestCase
   public function user_is_emailed_after_updating_their_password()
   {
     $user = factory(App\User::class, 1)->create();
-    $this->actingAs($user)
+    $this->userUpdatePassword($user);
+    $this->seeEmailWasSent()
+      ->seeEmailSubject('Your password has been updated')
+      ->seeEmailTo($user->email);
+  }
+
+  protected function userUpdatePassword($user)
+  {
+    return $this->actingAs($user)
       ->visit('/settings/password')
       ->type('RandomPasswordNew', 'password')
       ->type('RandomPasswordNew', 'password_confirmation')
-      ->press('Update')
-
-      ->seeEmailWasSent()
-      ->seeEmailSubject('Your password has been updated')
-      ->seeEmailTo($user->email);
+      ->press('Update');
   }
 
 }

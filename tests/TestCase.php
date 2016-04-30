@@ -22,4 +22,16 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    protected function registerNewUser()
+    {
+      $this->visit('/register')
+          ->type('Taylor', 'name')
+          ->type('taylor@example.com', 'email')
+          ->type('RandomPassword', 'password')
+          ->type('RandomPassword', 'password_confirmation')
+          ->press('Register');
+
+      return \App\User::find(1);
+    }
 }
