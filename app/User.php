@@ -57,4 +57,8 @@ class User extends Authenticatable
     public function access(){
       return $this->accesses->first()->name;
     }
+
+    public function free(){
+      return $this->access() == 'free';
+    }
 }

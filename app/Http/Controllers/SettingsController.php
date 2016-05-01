@@ -81,8 +81,21 @@ class SettingsController extends Controller
     }
 
     public function upgradeAccount(){
+      if(!$this->user->free()){
+        return redirect()
+          ->route('settings.subscription.change');
+      }
       return 'test';
     }
+
+    public function changePlan(){
+      if($this->user->free()){
+        return redirect()
+          ->route('settings.upgrade');
+      }
+      return 'changePlan';
+    }
+
 
 
     private function hasEmailBeenUpdated($request){
