@@ -12210,9 +12210,15 @@ return jQuery;
 },{}],3:[function(require,module,exports){
 'use strict';
 
-require('./setup/jquery/bootstrap.js');
+// By default this will include Bootstrap.js and jQuery straight out of the box
+// This is compiled using browserify in the gulpfile
+// Feel free to use whatever library you like
+require('./config/bootstrap_with_jquery.js');
 
-},{"./setup/jquery/bootstrap.js":4}],4:[function(require,module,exports){
+// Start writing your javascript here
+// console.log('Hello World');
+
+},{"./config/bootstrap_with_jquery.js":4}],4:[function(require,module,exports){
 'use strict';
 
 window.$ = window.jQuery = require('jquery');
