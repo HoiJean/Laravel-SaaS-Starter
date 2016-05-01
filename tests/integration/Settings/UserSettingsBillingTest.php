@@ -110,15 +110,15 @@ class UserSettingsBillingTest extends TestCase
       ->dontSee('Billing');
   }
 
-  /** @test */
-  public function user_should_see_a_list_of_features_for_each_subscription_tier()
-  {
-    // $user = $this->createUser();
-    // $this->actingAs($user)
-    //   ->visit('/settings')
-    //   ->seePageIs('/settings/upgrade');
-  }
-  
+  // /** @test */
+  // public function user_should_see_a_list_of_features_for_each_subscription_tier()
+  // {
+  //   // $user = $this->createUser();
+  //   // $this->actingAs($user)
+  //   //   ->visit('/settings')
+  //   //   ->seePageIs('/settings/upgrade');
+  // }
+
     // /** @test */
     // public function change_subscription_page_should_show_users_current_plan()
     // {

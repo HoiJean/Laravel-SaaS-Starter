@@ -1,0 +1,62 @@
+.pricing-bg{
+  background-color: $gray-light;
+}
+.pricing-tables{
+  width: 100%;
+
+  .plan{
+    @include make-sm-column(4);
+    @include make-xs-column(12);
+    background: $white;
+    display: inline-block;
+    border: 1px solid $gray;
+    border-radius: em(3);
+    padding-bottom: em(10);
+    margin-top: em(10);
+
+    text-align: center;
+
+    .price{
+      font-size: em(50);
+      padding-right: em(5);
+      span{
+        font-size: 25px;
+        position: relative;
+        top: -17px;
+      }
+    }
+
+    .btn{
+      width: 90%;
+      border-radius: em(20);
+      margin-bottom: em(10);
+      @extend %btn-default
+    }
+
+    ul{
+
+      list-style: none;
+      padding: em(10) em(12) em(10) em(12);
+      text-align: left;
+
+      li{
+        display: block;
+
+      }
+    }
+  }
+
+  .plan-main{
+    margin-top: em(0);
+    padding-top: em(20);
+    padding-bottom: em(20);
+    padding-bottom: em(20);
+    z-index: 100;
+    @extend %outer-shadow;
+
+    .btn{
+      @extend %btn-info
+    }
+  }
+
+}

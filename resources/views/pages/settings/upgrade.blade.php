@@ -12,11 +12,8 @@
       <div class="col-md-7">
           <div class="panel panel-default">
               <div class="panel-heading">Upgrade your account</div>
-                <div class="panel-body">
-
-
-
-
+                <div class="panel-body pricing-bg">
+                  @include('pages.settings.partials.pricing_tables')
                 </div>
           </div>
       </div>
