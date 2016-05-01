@@ -13,11 +13,7 @@ class UserSettingsPasswordUpdateTest extends TestCase
   /** @test */
   public function user_can_update_their_password()
   {
-    $user = App\User::create([
-        'name' => 'Taylor',
-        'email' => 'taylor@example.com',
-        'password' => Hash::make('RandomPassword'),
-    ]);
+    $user = $this->createUser();
 
     $this->userUpdatePassword($user);
 

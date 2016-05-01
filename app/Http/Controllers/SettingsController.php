@@ -85,7 +85,8 @@ class SettingsController extends Controller
         return redirect()
           ->route('settings.subscription.change');
       }
-      return 'test';
+      return view('pages/settings/upgrade')
+        ->with('user', $this->user);
     }
 
     public function changePlan(){

@@ -46,53 +46,87 @@ class UserSettingsBillingTest extends TestCase
     $user = $this->createUser('standard');
     $this->actingAs($user)
       ->visit('/settings/upgrade')
-      ->seePageIs('settings/subscription/change');
+      ->seePageIs('settings/subscription');
 
     $user = $this->createUser('premium');
     $this->actingAs($user)
       ->visit('/settings/upgrade')
-      ->seePageIs('settings/subscription/change');
+      ->seePageIs('settings/subscription');
 
 
     $user = $this->createUser('gold');
     $this->actingAs($user)
       ->visit('/settings/upgrade')
-      ->seePageIs('settings/subscription/change');
+      ->seePageIs('settings/subscription');
   }
 
-  // /** @test */
-  // public function already_paying_users_should_be_able_to_see_the_change_subscription_tab()
-  // {
-  //   // Given
-  //   // When
-  //   // Then
-  // }
+  /** @test */
+  public function already_paying_users_should_be_able_to_see_the_change_subscription_tab()
+  {
+    $user = $this->createUser('free');
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->dontSee('Subscription');
 
-  // /** @test */
-  // public function already_paying_users_should_be_able_to_navigate_to_the_change_subscription_page()
-  // {
-  //   // Given
-  //   // When
-  //   // Then
-  // }
-  //
-  // /** @test */
-  // public function change_subscription_page_should_show_users_current_plan()
-  // {
-  //   // Given
-  //   // When
-  //   // Then
-  // }
-  //
-  // /** @test */
-  // public function user_should_see_a_list_of_features_for_each_subscription_tier()
-  // {
-  //   // $user = $this->createUser();
-  //   // $this->actingAs($user)
-  //   //   ->visit('/settings')
-  //   //   ->seePageIs('/settings/upgrade');
-  // }
-  //
+    $user = $this->createUser('standard');
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->click('Subscription')
+      ->seePageIs('settings/subscription');
+
+    $user = $this->createUser('premium');
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->click('Subscription')
+      ->seePageIs('settings/subscription');
+
+    $user = $this->createUser('gold');
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->click('Subscription')
+      ->seePageIs('settings/subscription');
+  }
+
+  /** @test */
+  public function free_users_cannot_navigate_to_subscriptions()
+  {
+    $user = $this->createUser('free');
+    $this->actingAs($user)
+      ->visit('settings/subscription')
+      ->seePageIs('settings/upgrade');
+  }
+
+  /** @test */
+  public function only_clients_can_see_the_billing_tab()
+  {
+    $user = $this->createUser('free');
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->see('Billing');
+
+    $user = $this->createUser('admin');
+    $this->actingAs($user)
+      ->visit('/settings')
+      ->dontSee('Billing');
+  }
+
+  /** @test */
+  public function user_should_see_a_list_of_features_for_each_subscription_tier()
+  {
+    // $user = $this->createUser();
+    // $this->actingAs($user)
+    //   ->visit('/settings')
+    //   ->seePageIs('/settings/upgrade');
+  }
+  
+    // /** @test */
+    // public function change_subscription_page_should_show_users_current_plan()
+    // {
+    //   // Given
+    //   // When
+    //   // Then
+    // }
+
   // /** @test */
   // public function change_subscription_should_show_the_same_features_from_upgrade()
   // {

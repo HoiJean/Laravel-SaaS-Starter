@@ -61,4 +61,24 @@ class User extends Authenticatable
     public function free(){
       return $this->access() == 'free';
     }
+
+    public function standard(){
+      return $this->access() == 'standard';
+    }
+
+    public function premium(){
+      return $this->access() == 'premium';
+    }
+
+    public function gold(){
+      return $this->access() == 'gold';
+    }
+
+    public function admin(){
+      return $this->role() == 'admin';
+    }
+
+    public function client(){
+      return $this->role() == 'client';
+    }
 }

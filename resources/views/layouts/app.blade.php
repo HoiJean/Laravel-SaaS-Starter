@@ -64,6 +64,7 @@
         </div>
     </nav>
 
+    @include('layouts.alerts')
     @yield('content')
 
     <script src="{{ elixir('js/app.js') }}"></script>

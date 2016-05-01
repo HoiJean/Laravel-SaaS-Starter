@@ -13,6 +13,7 @@
       </div>
 </div>
 
+@if(Auth::user()->client())
 <div class="panel panel-default">
     <div class="panel-heading">Billing</div>
 
@@ -21,6 +22,11 @@
         <a href="{{ route('settings.upgrade') }}" class="list-group-item">
           Upgrade
         </a>
+        @else
+        <a href="{{ route('settings.subscription.change') }}" class="list-group-item">
+          Subscription
+        </a>
         @endif
       </div>
 </div>
+@endif
