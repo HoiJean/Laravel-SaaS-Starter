@@ -15,6 +15,20 @@ class PremiumMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+      $authorisedAccess = ['premium', 'gold'];
+      $access = \Auth::user()->access();
+
+      if( $this->isUserAuthorised($access, $authorisedAccess)){
+        return redirect()
+          ->route('upgrade')
+          ->with('flash_info',
+            'Upgrade your account to access these features.');
+      }
+
+      return $next($request);
+    }
+
+    private function isUserAuthorised($access, $authorisedAccess){
+      return !in_array($access, $authorisedAccess);
     }
 }

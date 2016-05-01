@@ -40,19 +40,35 @@ class UserPermissionsTest extends TestCase
 
     $this->actingAs($user)
       ->visit('/dashboard')
-      ->click('Standard Users Areas');
-      // ->seePageIs('/upgrade');
+      ->click('Standard Users Areas')
+      ->seePageIs('/upgrade');
 
-  //   $this->actingAs($user)
-  //      ->visit('/dashboard')
-  //      ->click('Premium Users Areas')
-  //      ->seePageIs('/upgrade');
-   //
-  //  $this->actingAs($user)
-  //     ->visit('/dashboard')
-  //     ->click('Gold Users Areas')
-  //     ->seePageIs('/upgrade');
+    $this->actingAs($user)
+       ->visit('/dashboard')
+       ->click('Premium Users Areas')
+       ->seePageIs('/upgrade');
 
+   $this->actingAs($user)
+      ->visit('/dashboard')
+      ->click('Gold Users Areas')
+      ->seePageIs('/upgrade');
+
+  }
+
+  /** @test */
+  public function guests_cannot_see_any_of_these_pages()
+  {
+    $this->visit('/free')
+       ->seePageIs('/login');
+
+    $this->visit('/standard')
+      ->seePageIs('/login');
+
+    $this->visit('/premium')
+      ->seePageIs('/login');
+
+    $this->visit('/gold')
+      ->seePageIs('/login');
   }
 
 }

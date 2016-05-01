@@ -13,8 +13,22 @@ class GoldMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-        return $next($request);
-    }
+     public function handle($request, Closure $next)
+     {
+       $authorisedAccess = ['gold'];
+       $access = \Auth::user()->access();
+
+       if( $this->isUserAuthorised($access, $authorisedAccess)){
+         return redirect()
+           ->route('upgrade')
+           ->with('flash_info',
+             'Upgrade your account to access these features.');
+       }
+
+       return $next($request);
+     }
+
+     private function isUserAuthorised($access, $authorisedAccess){
+       return !in_array($access, $authorisedAccess);
+     }
 }

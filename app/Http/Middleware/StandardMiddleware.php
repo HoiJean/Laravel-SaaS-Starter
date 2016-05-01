@@ -13,11 +13,22 @@ class StandardMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-      return redirect()
-        ->route('upgrade')
-        ->with('flash_info',
-          'Upgrade your account to access these features.');
-    }
+     public function handle($request, Closure $next)
+     {
+       $authorisedAccess = ['standard', 'premium', 'gold'];
+       $access = \Auth::user()->access();
+
+       if( $this->isUserAuthorised($access, $authorisedAccess)){
+         return redirect()
+           ->route('upgrade')
+           ->with('flash_info',
+             'Upgrade your account to access these features.');
+       }
+
+       return $next($request);
+     }
+
+     private function isUserAuthorised($access, $authorisedAccess){
+       return !in_array($access, $authorisedAccess);
+     }
 }
