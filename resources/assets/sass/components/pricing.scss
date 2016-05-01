@@ -5,8 +5,7 @@
   width: 100%;
 
   .plan{
-    @include make-sm-column(4);
-    @include make-xs-column(12);
+    @include make-xs-column(4);
     background: $white;
     display: inline-block;
     border: 1px solid $gray;
@@ -41,7 +40,18 @@
 
       li{
         display: block;
+        color: darken($gray, 40);
 
+        &:before {
+          content: "\f00c";
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          color: darken($gray, 50);
+          margin-right: em(10);
+          // display: block;
+          // clear: both;
+        }
       }
     }
   }
@@ -59,4 +69,19 @@
     }
   }
 
+}
+
+
+@media (max-width:  em(570) ){
+  .pricing-tables{
+    .price, .plan-main{
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: em(10);
+      margin-bottom: em(10);
+    }
+    .plan{
+      @include make-xs-column(12);
+    }
+  }
 }

@@ -5845,12 +5845,8 @@ body {
   width: 100%; }
   .pricing-tables .plan {
     position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
     float: left;
-    width: 100%;
+    width: 33.3333333333%;
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
@@ -5861,10 +5857,6 @@ body {
     padding-bottom: 0.625em;
     margin-top: 0.625em;
     text-align: center; }
-    @media (min-width: 768px) {
-      .pricing-tables .plan {
-        float: left;
-        width: 33.3333333333%; } }
     .pricing-tables .plan .price {
       font-size: 3.125em;
       padding-right: 0.3125em; }
@@ -5881,12 +5873,34 @@ body {
       padding: 0.625em 0.75em 0.625em 0.75em;
       text-align: left; }
       .pricing-tables .plan ul li {
-        display: block; }
+        display: block;
+        color: #777777; }
+        .pricing-tables .plan ul li:before {
+          content: "\f00c";
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          color: #5e5e5e;
+          margin-right: 0.625em; }
   .pricing-tables .plan-main {
     margin-top: 0em;
     padding-top: 1.25em;
     padding-bottom: 1.25em;
     padding-bottom: 1.25em;
     z-index: 100; }
+
+@media (max-width: 35.625em) {
+  .pricing-tables .price, .pricing-tables .plan-main {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.625em;
+    margin-bottom: 0.625em; }
+  .pricing-tables .plan {
+    position: relative;
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; } }
 
 /*# sourceMappingURL=app.css.map */

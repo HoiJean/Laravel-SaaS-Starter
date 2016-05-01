@@ -7,7 +7,7 @@
     <p>Per Month</p>
     <a href="#" class="btn">Get Started</a>
     <ul>
-      <li>Feature</li>
+      <li>Really Long Text Feature</li>
       <li>Feature</li>
       <li>Feature</li>
       <li>Feature</li>
@@ -23,7 +23,7 @@
     <p>Per Month</p>
     <a href="#" class="btn">Get Started</a>
     <ul>
-      <li>Feature</li>
+      <li>Really Long Text Feature</li>
       <li>Feature</li>
       <li>Feature</li>
       <li>Feature</li>
@@ -42,10 +42,7 @@
     <p>Per Month</p>
     <a href="#" class="btn">Get Started</a>
     <ul>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
+      <li>Really Long Text Feature</li>
       <li>Feature</li>
       <li>Feature</li>
       <li>Feature</li>
