@@ -31,7 +31,7 @@ class UserSettingsPasswordUpdateTest extends TestCase
   /** @test */
   public function after_user_updates_password_they_are_redirected_back_to_the_password_page_with_a_flash_message()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->userUpdatePassword($user);
     $this->seePageIs('/settings/password')
       ->see('Your password has been successfully updated.');
@@ -40,7 +40,7 @@ class UserSettingsPasswordUpdateTest extends TestCase
   /** @test */
   public function password_form_is_validated()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings/password')
       ->type('12345', 'password')
@@ -69,7 +69,7 @@ class UserSettingsPasswordUpdateTest extends TestCase
   /** @test */
   public function user_is_emailed_after_updating_their_password()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->userUpdatePassword($user);
     $this->seeEmailWasSent()
       ->seeEmailSubject('Your password has been updated')

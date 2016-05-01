@@ -12,7 +12,7 @@ class UserSettingsAccessTest extends TestCase
   /** @test */
   public function user_who_is_logged_in_can_access_settings_from_dropdown_menu_item()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
      ->visit('/dashboard')
      ->click($user->name)
@@ -31,7 +31,7 @@ class UserSettingsAccessTest extends TestCase
   /** @test */
   public function settings_page_has_the_standard_menu_bar()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
      ->visit('/settings')
      ->see($user->name);
@@ -40,7 +40,7 @@ class UserSettingsAccessTest extends TestCase
   /** @test */
   public function user_can_access_password_change_page_from_settings_page()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
      ->visit('/settings')
      ->click('Update Password')

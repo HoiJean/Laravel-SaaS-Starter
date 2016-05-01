@@ -28,4 +28,31 @@ class UserPermissionsTest extends TestCase
     $this->assertTrue($user->access() == 'free');
   }
 
+  /** @test */
+  public function free_users_can_only_access_free_routes()
+  {
+    $user = $this->createUser();
+
+    $this->actingAs($user)
+       ->visit('/dashboard')
+       ->click('Free Users Areas')
+       ->seePageIs('/free');
+
+    $this->actingAs($user)
+      ->visit('/dashboard')
+      ->click('Standard Users Areas');
+      // ->seePageIs('/upgrade');
+
+  //   $this->actingAs($user)
+  //      ->visit('/dashboard')
+  //      ->click('Premium Users Areas')
+  //      ->seePageIs('/upgrade');
+   //
+  //  $this->actingAs($user)
+  //     ->visit('/dashboard')
+  //     ->click('Gold Users Areas')
+  //     ->seePageIs('/upgrade');
+
+  }
+
 }

@@ -34,4 +34,21 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
       return \App\User::find(1);
     }
+
+    protected function createUser()
+    {
+      $user = factory(App\User::class, 1)->create();
+
+      \DB::table('role_user')->insert([
+          'user_id' => $user->id,
+          'role_id' => 1,
+      ]);
+
+      \DB::table('access_user')->insert([
+          'user_id' => $user->id,
+          'access_id' => 1,
+      ]);
+
+      return $user;
+    }
 }

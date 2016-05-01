@@ -13,7 +13,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function user_can_update_contact_info_from_the_main_settings_page()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings')
       ->see('Update Contact Information');
@@ -22,7 +22,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function user_can_update_their_name_and_email()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings')
       ->type('Taylor', 'name')
@@ -41,7 +41,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function user_can_update_just_their_name()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $userEmailOld = $user->email;
 
     $this->actingAs($user)
@@ -60,7 +60,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function user_can_update_just_their_email()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $userNameOld = $user->name;
 
     $this->actingAs($user)
@@ -78,7 +78,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function user_should_see_their_contact_information_in_the_form()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings')
       ->see($user->email);
@@ -87,7 +87,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function after_user_updates_contact_info_they_are_redirected_back_to_the_settings_page_with_a_flash_message()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings')
       ->type('Taylor', 'name')
@@ -101,7 +101,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function contact_info_form_is_validated()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings')
       ->type('r', 'name')
@@ -113,7 +113,7 @@ class UserSettingsProfileUpdateTest extends TestCase
   /** @test */
   public function user_is_emailed_after_updating_their_contact_info()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
       ->visit('/settings')
       ->type('Taylor', 'name')

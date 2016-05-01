@@ -10,10 +10,10 @@
 
       <div class="col-md-7">
           <div class="panel panel-default">
-              <div class="panel-heading">Dashboard</div>
+              <div class="panel-heading">Gold Users Areas</div>
 
               <div class="panel-body">
-                  You are logged in!
+                  Gold Users Areas
               </div>
           </div>
       </div>

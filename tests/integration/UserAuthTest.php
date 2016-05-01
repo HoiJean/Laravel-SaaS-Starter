@@ -33,7 +33,7 @@ class UserAuthTest extends TestCase
     $this->visit('/')
       ->dontSee('Dashboard');
 
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
        ->visit('/')
        ->see('Dashboard');
@@ -56,7 +56,7 @@ class UserAuthTest extends TestCase
   /** @test */
   public function when_user_is_logged_in_they_cannot_access_the_login_page()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
      ->visit('/login')
      ->seePageIs('/');
@@ -65,7 +65,7 @@ class UserAuthTest extends TestCase
   /** @test */
   public function when_user_is_logged_in_they_cannot_access_the_register_page()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->actingAs($user)
      ->visit('/register')
      ->seePageIs('/');
@@ -106,7 +106,7 @@ class UserAuthTest extends TestCase
   /** @test */
   public function see_email_was_sent_after_guest_request_password_request()
   {
-    $user = factory(App\User::class, 1)->create();
+    $user = $this->createUser();
     $this->visit('/password/reset')
         ->type($user->email, 'email')
         ->press('Send Password Reset Link')

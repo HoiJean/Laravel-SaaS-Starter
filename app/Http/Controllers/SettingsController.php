@@ -80,6 +80,10 @@ class SettingsController extends Controller
           'Your password has been successfully updated.');
     }
 
+    public function upgradeAccount(){
+      return 'test';
+    }
+
 
     private function hasEmailBeenUpdated($request){
       return $this->user->email != $request->get('email');

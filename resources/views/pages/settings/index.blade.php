@@ -7,7 +7,7 @@
         @include('pages.settings.partials.settings_tab')
       </div>
 
-      <div class="col-md-7 ">
+      <div class="col-md-7">
           <div class="panel panel-default">
               <div class="panel-heading">Update Contact Information</div>
                 <div class="panel-body">

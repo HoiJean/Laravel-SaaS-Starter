@@ -23,3 +23,9 @@ Route::get('/settings', ['as' => 'settings', 'uses' => 'SettingsController@index
 Route::post('/settings/contact', ['as' => 'settings.contact.post', 'uses' => 'SettingsController@updateUserContactInfo']);
 Route::get('/settings/password', ['as' => 'settings.password', 'uses' => 'SettingsController@getPasswordChange']);
 Route::post('/settings/password', ['as' => 'settings.password.post', 'uses' => 'SettingsController@updateUserPassword']);
+Route::get('/upgrade', ['as' => 'upgrade', 'uses' => 'SettingsController@upgradeAccount']);
+
+Route::get('/free', ['as' => 'free', 'uses' => 'AreaFreeController@index']);
+Route::get('/standard', ['as' => 'standard', 'uses' => 'AreaStandardController@index']);
+Route::get('/premium', ['as' => 'premium', 'uses' => 'AreaPremiumController@index']);
+Route::get('/gold', ['as' => 'gold', 'uses' => 'AreaGoldController@index']);
