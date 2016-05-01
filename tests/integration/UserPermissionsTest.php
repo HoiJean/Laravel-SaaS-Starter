@@ -41,17 +41,17 @@ class UserPermissionsTest extends TestCase
     $this->actingAs($user)
       ->visit('/dashboard')
       ->click('Standard Users Areas')
-      ->seePageIs('/upgrade');
+      ->seePageIs('/settings/upgrade');
 
     $this->actingAs($user)
        ->visit('/dashboard')
        ->click('Premium Users Areas')
-       ->seePageIs('/upgrade');
+       ->seePageIs('/settings/upgrade');
 
    $this->actingAs($user)
       ->visit('/dashboard')
       ->click('Gold Users Areas')
-      ->seePageIs('/upgrade');
+      ->seePageIs('/settings/upgrade');
 
   }
 
