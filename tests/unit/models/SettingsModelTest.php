@@ -11,7 +11,6 @@ class SettingsModelTest extends TestCase
   use DatabaseTransactions;
 
   protected $billing = [];
-  protected $settings;
 
   public function setUp(){
     parent::setUp();
@@ -25,23 +24,30 @@ class SettingsModelTest extends TestCase
   public function it_can_return_the_number_of_active_plans()
   {
 
-    $this->assertTrue( $this->settings->countPlans() == 3);
+    $this->assertTrue( Settings::countPlans() == 3);
 
     $this->billing['standard']['active'] = false;
     $this->updateBillingConfig();
-    $this->assertTrue( $this->settings->countPlans() == 2);
+    $this->assertTrue( Settings::countPlans() == 2);
 
     $this->billing['gold']['active'] = false;
     $this->updateBillingConfig();
 
-    $this->assertTrue( $this->settings->countPlans() == 1);
+    $this->assertTrue( Settings::countPlans() == 1);
   }
 
   /** @test */
   public function it_can_return_number_of_active_plans_with_free()
   {
-    $this->assertTrue( $this->settings->countPlansFree() == 4);
+    $this->assertTrue( Settings::countPlansFree() == 4);
   }
+
+  // /** @test */
+  // public function it_can_return_amulti_array_for_the_plans_without_free_plan()
+  // {
+  //
+  // }
+
 
   protected function setupBillingArray(){
     return [
@@ -122,7 +128,6 @@ class SettingsModelTest extends TestCase
 
   protected function updateBillingConfig(){
     config(['settings.billing' => $this->billing]);
-    $this->settings = new Settings();
   }
 
 }

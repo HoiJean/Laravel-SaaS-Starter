@@ -1,5 +1,5 @@
 
-<div class="pricing-tables pricing-tables-3">
+<div class="pricing-tables pricing-tables-{{App\Settings::countPlans()}}">
 
 
   <div class="plan">
