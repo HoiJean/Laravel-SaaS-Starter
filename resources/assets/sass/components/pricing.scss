@@ -5,7 +5,6 @@
   width: 100%;
 
   .plan{
-    @include make-xs-column(4);
     background: $white;
     display: inline-block;
     border: 1px solid $gray;
@@ -71,6 +70,38 @@
 
 }
 
+.pricing-tables-4{
+  .plan{
+    @include make-xs-column(3);
+
+    @media (max-width:  em(700) ){
+      @include make-xs-column(6);
+    }
+
+    @media (max-width:  em(500) ){
+      @include make-xs-column(12);
+    }
+  }
+}
+
+.pricing-tables-3{
+  .plan{
+    @include make-xs-column(4);
+  }
+}
+
+.pricing-tables-2{
+  .plan{
+    @include make-xs-column(6);
+  }
+}
+
+.pricing-tables-1{
+  .plan{
+    @include make-xs-column(6);
+    @include make-xs-column-offset(3);
+  }
+}
 
 @media (max-width:  em(570) ){
   .pricing-tables{
@@ -84,4 +115,5 @@
       @include make-xs-column(12);
     }
   }
+
 }

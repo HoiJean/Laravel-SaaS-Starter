@@ -5844,12 +5844,6 @@ body {
 .pricing-tables {
   width: 100%; }
   .pricing-tables .plan {
-    position: relative;
-    float: left;
-    width: 33.3333333333%;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
     background: #fff;
     display: inline-block;
     border: 1px solid #ddd;
@@ -5888,6 +5882,55 @@ body {
     padding-bottom: 1.25em;
     padding-bottom: 1.25em;
     z-index: 100; }
+
+.pricing-tables-4 .plan {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px; }
+  @media (max-width: 43.75em) {
+    .pricing-tables-4 .plan {
+      position: relative;
+      float: left;
+      width: 50%;
+      min-height: 1px;
+      padding-left: 15px;
+      padding-right: 15px; } }
+  @media (max-width: 31.25em) {
+    .pricing-tables-4 .plan {
+      position: relative;
+      float: left;
+      width: 100%;
+      min-height: 1px;
+      padding-left: 15px;
+      padding-right: 15px; } }
+
+.pricing-tables-3 .plan {
+  position: relative;
+  float: left;
+  width: 33.3333333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.pricing-tables-2 .plan {
+  position: relative;
+  float: left;
+  width: 50%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.pricing-tables-1 .plan {
+  position: relative;
+  float: left;
+  width: 50%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 25%; }
 
 @media (max-width: 35.625em) {
   .pricing-tables .price, .pricing-tables .plan-main {

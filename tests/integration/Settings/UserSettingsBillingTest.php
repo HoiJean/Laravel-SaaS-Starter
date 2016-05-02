@@ -113,6 +113,11 @@ class UserSettingsBillingTest extends TestCase
   // /** @test */
   // public function user_should_see_a_list_of_features_for_each_subscription_tier()
   // {
+  //   // config(['app.env' => 'no']);
+  //
+  //   // dd( config('settings.pages') );
+  //   // dd( config('app.env') );
+  //   // dd( Config::get('sass_starter.test') );
   //   // $user = $this->createUser();
   //   // $this->actingAs($user)
   //   //   ->visit('/settings')
@@ -142,15 +147,16 @@ class UserSettingsBillingTest extends TestCase
   //   // When
   //   // Then
   // }
-  //
-  // /** @test */
-  // public function developer_should_be_able_to_determine_the_plans_in_a_config_file()
-  // {
-  //   // Given
-  //   // When
-  //   // Then
-  // }
-  //
+
+  /** @test */
+  public function developer_should_be_able_to_determine_the_plans_in_a_config_file()
+  {
+    // dd(App\Settings::numberOfActivePlansClient());
+    // Given
+    // When
+    // Then
+  }
+
   // /** @test */
   // public function user_can_update_their_card_information()
   // {
