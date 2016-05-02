@@ -12,19 +12,24 @@ class Settings
     $this->billing = config('settings.billing');
   }
 
-  public function numberOfActivePlans($countFree = null){
-// dd('test');
+  public function countPlans(){
+    return $this->countBillingPlans();
+  }
+
+  public function countPlansFree(){
+    return $this->countBillingPlans(true);
+  }
+
+  private function countBillingPlans($includeFree = false){
     $number = 0;
-    // dd($this->billing);
-    foreach ($this->billing as $key => $plan) {
-      if ( $key == 'free'){
-        if($countFree == 'free')
-          if ($plan["active"]){
+    foreach ($this->billing as $planName => $plan) {
+      if ($plan["active"]){
+        if ( $planName == 'free'){
+          if($includeFree){
             $number++;
           }
         }
-      else{
-        if ($plan["active"]){
+        else{
           $number++;
         }
       }

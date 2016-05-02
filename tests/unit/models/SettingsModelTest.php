@@ -25,25 +25,23 @@ class SettingsModelTest extends TestCase
   public function it_can_return_the_number_of_active_plans()
   {
 
-    $this->assertTrue( $this->settings->numberOfActivePlans() == 3);
+    $this->assertTrue( $this->settings->countPlans() == 3);
 
     $this->billing['standard']['active'] = false;
     $this->updateBillingConfig();
-    $this->assertTrue( $this->settings->numberOfActivePlans() == 2);
+    $this->assertTrue( $this->settings->countPlans() == 2);
 
     $this->billing['gold']['active'] = false;
     $this->updateBillingConfig();
 
-    $this->assertTrue( $this->settings->numberOfActivePlans() == 1);
+    $this->assertTrue( $this->settings->countPlans() == 1);
   }
 
   /** @test */
   public function it_can_return_number_of_active_plans_with_free()
   {
-    $this->assertTrue( $this->settings->numberOfActivePlans('free') == 4);
+    $this->assertTrue( $this->settings->countPlansFree() == 4);
   }
-
-
 
   protected function setupBillingArray(){
     return [
