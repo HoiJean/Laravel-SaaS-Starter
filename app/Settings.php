@@ -4,15 +4,26 @@ namespace App;
 
 class Settings
 {
-  // public static function hello(){
-  //   return config('settings.billing');
-  // }
 
-  public static function numberOfActivePlans(){
-    $array = config('settings.billing');
+  protected $billing;
+
+  public function __construct()
+  {
+    $this->billing = config('settings.billing');
+  }
+
+  public function numberOfActivePlans($countFree = null){
+// dd('test');
     $number = 0;
-    foreach ($array as $key => $plan) {
-      if ( $key != 'free'){
+    // dd($this->billing);
+    foreach ($this->billing as $key => $plan) {
+      if ( $key == 'free'){
+        if($countFree == 'free')
+          if ($plan["active"]){
+            $number++;
+          }
+        }
+      else{
         if ($plan["active"]){
           $number++;
         }
@@ -20,4 +31,5 @@ class Settings
     }
     return $number;
   }
+
 }
