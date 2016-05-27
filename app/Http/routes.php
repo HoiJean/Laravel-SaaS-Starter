@@ -23,8 +23,10 @@ Route::get('/settings', ['as' => 'settings', 'uses' => 'SettingsController@index
 Route::post('/settings/contact', ['as' => 'settings.contact.post', 'uses' => 'SettingsController@updateUserContactInfo']);
 Route::get('/settings/password', ['as' => 'settings.password', 'uses' => 'SettingsController@getPasswordChange']);
 Route::post('/settings/password', ['as' => 'settings.password.post', 'uses' => 'SettingsController@updateUserPassword']);
-Route::get('/settings/upgrade', ['as' => 'settings.upgrade', 'uses' => 'SettingsController@upgradeAccount']);
-Route::get('/settings/subscription', ['as' => 'settings.subscription.change', 'uses' => 'SettingsController@changePlan']);
+Route::get('/settings/upgrade', ['as' => 'settings.subscription', 'uses' => 'SettingsController@upgradeAccount']);
+Route::group(['prefix' => '/settings/subscription'], function(){
+  Route::get('/', ['as' => 'settings.subscription', 'uses' => 'SubscriptionController@index']);
+});
 
 Route::get('/free', ['as' => 'free', 'uses' => 'AreaFreeController@index']);
 Route::get('/standard', ['as' => 'standard', 'uses' => 'AreaStandardController@index']);

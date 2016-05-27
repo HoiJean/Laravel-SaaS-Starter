@@ -20,7 +20,7 @@ class StandardMiddleware
 
        if( $this->isUserAuthorised($access, $authorisedAccess)){
          return redirect()
-           ->route('settings.upgrade')
+           ->route('settings.subscription')
            ->with('flash_info',
              'Upgrade your account to access these features.');
        }

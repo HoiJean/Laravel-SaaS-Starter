@@ -80,23 +80,23 @@ class SettingsController extends Controller
           'Your password has been successfully updated.');
     }
 
-    public function upgradeAccount(){
-      if(!$this->user->free()){
-        return redirect()
-          ->route('settings.subscription.change');
-      }
-      return view('pages/settings/upgrade')
-        ->with('user', $this->user);
-    }
+    // public function upgradeAccount(){
+    //   if(!$this->user->free()){
+    //     return redirect()
+    //       ->route('settings.subscription');
+    //   }
+    //   return view('pages/settings/subscription/upgrade')
+    //     ->with('user', $this->user);
+    // }
 
-    public function changePlan(){
-      if($this->user->free()){
-        return redirect()
-          ->route('settings.upgrade');
-      }
-      return 'changePlan';
-    }
-
+    // public function changePlan(){
+    //   if($this->user->free()){
+    //     return redirect()
+    //       ->route('settings.subscription');
+    //   }
+    //   return 'changePlan';
+    // }
+    //
 
 
     private function hasEmailBeenUpdated($request){

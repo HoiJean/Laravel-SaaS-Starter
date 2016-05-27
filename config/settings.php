@@ -8,8 +8,8 @@ return  [
         'stripe_plan_id' => 'standard',
         'plan_name' => 'Standard',
         'most_popular' => true,
-        'currency' => '€',
-        'price' => '27',
+        'currency' => '',
+        'price' => 'Free',
         'billing_cycle' => 'Per Month',
         'button_name' => 'Get Started',
         'features' => [
@@ -42,7 +42,7 @@ return  [
       'premium' =>[
         'active' => true,
         'stripe_plan_id' => 'standard',
-        'plan_name' => 'Standard',
+        'plan_name' => 'Premium',
         'most_popular' => true,
         'currency' => '€',
         'price' => '299',
@@ -60,7 +60,7 @@ return  [
       'gold' =>[
         'active' => true,
         'stripe_plan_id' => 'standard',
-        'plan_name' => 'Standard',
+        'plan_name' => 'Gold',
         'most_popular' => false,
         'currency' => '€',
         'price' => '399',

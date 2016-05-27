@@ -14,29 +14,39 @@ class Settings
 
   public static function countPlans(){
     $settings = new Settings();
-    return $settings->countBillingPlans();
+    return count($settings->getBillingPlans());
   }
 
   public static function countPlansFree(){
     $settings = new Settings();
-    return $settings->countBillingPlans(true);
+    return count($settings->getBillingPlans(true));
   }
 
-  public function countBillingPlans($includeFree = false){
-    $number = 0;
+  public static function getPlans(){
+    $settings = new Settings();
+    return $settings->getBillingPlans();
+  }
+
+  public static function getPlansFree(){
+    $settings = new Settings();
+    return $settings->getBillingPlans(true);
+  }
+
+  public function getBillingPlans($includeFree = false){
+    $returnArray = [];
     foreach ($this->billing as $planName => $plan) {
       if ($plan["active"]){
         if ( $planName == 'free'){
           if($includeFree){
-            $number++;
+            $returnArray[] = $plan;
           }
         }
         else{
-          $number++;
+          $returnArray[] = $plan;
         }
       }
     }
-    return $number;
+    return $returnArray;
   }
 
 }

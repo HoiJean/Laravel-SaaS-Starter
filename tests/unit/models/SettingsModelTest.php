@@ -42,11 +42,27 @@ class SettingsModelTest extends TestCase
     $this->assertTrue( Settings::countPlansFree() == 4);
   }
 
-  // /** @test */
-  // public function it_can_return_amulti_array_for_the_plans_without_free_plan()
-  // {
-  //
-  // }
+  /** @test */
+  public function it_can_return_a_multi_array_for_the_plans_without_free_plan()
+  {
+    $this->assertTrue( count(Settings::getPlans()) == 3);
+    $this->billing['gold']['active'] = false;
+    $this->updateBillingConfig();
+
+    $this->assertTrue( count(Settings::getPlans()) == 2);
+  }
+
+  /** @test */
+  public function it_can_return_a_multi_array_for_the_plans_with_free_plan()
+  {
+    $this->assertTrue( count(Settings::getPlansFree()) == 4);
+    $this->billing['free']['active'] = false;
+    $this->updateBillingConfig();
+
+    $this->assertTrue( count(Settings::getPlansFree()) == 3);
+  }
+
+
 
 
   protected function setupBillingArray(){

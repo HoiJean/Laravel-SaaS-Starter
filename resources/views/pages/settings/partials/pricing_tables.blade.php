@@ -1,64 +1,20 @@
+<div class="pricing-tables pricing-tables-{{ App\Settings::countPlans() }}">
 
-<div class="pricing-tables pricing-tables-{{App\Settings::countPlans()}}">
-
-
-  <div class="plan">
-    <h3>Standard</h3>
+@foreach ( App\Settings::getPlans() as $plan )
+  <div class="plan {{ ($plan['most_popular']) ? 'plan-main' : '' }}">
+    <h3>{{ $plan['plan_name'] }}</h3>
     <div class="price">
-      <span>€</span>49
+      <span>{{ $plan['currency'] }}</span>{{ $plan['price'] }}
     </div>
-    <p>Per Month</p>
-    <a href="#" class="btn">Get Started</a>
+    <p>{{ $plan['billing_cycle'] }}</p>
+    <a href="#" class="btn">{{ $plan['button_name'] }}</a>
     <ul>
-      <li>Really Long Text Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
+      @foreach( $plan['features'] as $feature )
+      <li>{{ $feature }}</li>
+      @endforeach
     </ul>
   </div>
 
-  <div class="plan plan-main">
-    <h3>Premium</h3>
-    <div class="price">
-      <span>€</span>49
-    </div>
-    <p>Per Month</p>
-    <a href="#" class="btn">Get Started</a>
-    <ul>
-      <li>Really Long Text Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-    </ul>
-  </div>
-
-  <div class="plan">
-    <h3>Gold</h3>
-    <div class="price">
-      <span>€</span>49
-    </div>
-    <p>Per Month</p>
-    <a href="#" class="btn">Get Started</a>
-    <ul>
-      <li>Really Long Text Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-      <li>Feature</li>
-    </ul>
-  </div>
-
-
+@endforeach
 
 </div>
